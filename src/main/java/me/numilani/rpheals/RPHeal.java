@@ -4,6 +4,7 @@ import com.bergerkiller.bukkit.common.cloud.CloudSimpleHandler;
 import com.bergerkiller.bukkit.common.config.FileConfiguration;
 import me.numilani.rpheals.data.IDataSourceConnector;
 import me.numilani.rpheals.data.SqliteDataSourceConnector;
+import me.numilani.rpheals.listeners.CampfireListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
@@ -36,7 +37,7 @@ public final class RPHeal extends JavaPlugin {
         }
 
         // Register events
-        //getServer().getPluginManager().registerEvents(new FastRpChatListeners(this), this);
+        getServer().getPluginManager().registerEvents(new CampfireListener(this), this);
 
         // Register commands
         cmdHandler.enable(this);
@@ -46,7 +47,7 @@ public final class RPHeal extends JavaPlugin {
     private void doPluginInit() {
         var cfgFile = new FileConfiguration(this, "config.yml");
         cfgFile.addHeader("How long the cooldown between campfire uses should be, in minutes.");
-        cfgFile.set("cooldownInterval", "60");
+        cfgFile.set("cooldownInterval", 90);
 
         cfgFile.saveSync();
     }
