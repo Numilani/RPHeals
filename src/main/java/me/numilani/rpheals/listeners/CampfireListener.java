@@ -12,7 +12,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -28,7 +27,7 @@ public class CampfireListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) throws SQLException{
-        if (!plugin.dataSource.playerExistsInTable(event.getPlayer().getUniqueId().toString())){
+        if (!plugin.dataSource.playerExistsInCampfireTable(event.getPlayer().getUniqueId().toString())){
             plugin.dataSource.initPlayer(event.getPlayer().getUniqueId().toString());
         }
     }

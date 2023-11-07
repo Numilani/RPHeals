@@ -5,6 +5,7 @@ import com.bergerkiller.bukkit.common.config.FileConfiguration;
 import me.numilani.rpheals.data.IDataSourceConnector;
 import me.numilani.rpheals.data.SqliteDataSourceConnector;
 import me.numilani.rpheals.listeners.CampfireListener;
+import me.numilani.rpheals.listeners.DuelListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
@@ -38,6 +39,7 @@ public final class RPHeal extends JavaPlugin {
 
         // Register events
         getServer().getPluginManager().registerEvents(new CampfireListener(this), this);
+        getServer().getPluginManager().registerEvents(new DuelListener(this), this);
 
         // Register commands
         cmdHandler.enable(this);
