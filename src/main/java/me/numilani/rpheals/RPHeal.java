@@ -56,6 +56,10 @@ public final class RPHeal extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        try {
+            dataSource.purgeDuelList();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

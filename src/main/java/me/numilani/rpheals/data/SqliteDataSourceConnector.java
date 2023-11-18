@@ -62,15 +62,17 @@ public class SqliteDataSourceConnector implements IDataSourceConnector{
         }
     }
 
-    public void createDuel(String playerOneUuid, String playerTwoUuid) throws SQLException {
+    public Duel createDuel(String playerOneUuid, String playerTwoUuid) throws SQLException {
         var statement = conn.prepareStatement("INSERT INTO Duels (PlayerOneId, PlayerTwoId, PlayerOneConfirm, PlayerTwoConfirm) VALUES (?, ?, 1, 0)");
         statement.setString(1, playerOneUuid);
         statement.setString(2, playerTwoUuid);
         statement.execute();
+
+        return getDuel(playerOneUuid);
     }
 
     public boolean playerInActiveDuel(String uuid) throws SQLException {
-        var statement = conn.prepareStatement("SELECT Id FROM Duels WHERE PlayerOneId = ? OR PlayerTwoId = ?");
+        var statement = conn.prepareStatement("SELECT Id FROM Duels WHERE (PlayerOneId = ? OR PlayerTwoId = ?) and (PlayerOneConfirm = 1 and PlayerTwoConfirm = 1)");
         statement.setString(1, uuid);
         statement.setString(2, uuid);
         var x = statement.executeQuery();
