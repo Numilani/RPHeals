@@ -112,9 +112,9 @@ public class DuelListener implements Listener {
                 }
 
                 loser.sendTitle("", "You lost the duel!", 20,80,20);
-                loser.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 100, 9, false, false,true));
+                loser.addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE, 100, 9, false, false,true));
                 loser.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 9, false, false,true));
-                loser.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 9, false, false,true));
+                loser.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 100, 9, false, false,true));
 
                 if (winner != null){
                     if (Objects.equals(winner.getUniqueId().toString(), duel.PlayerOneId)){
@@ -125,9 +125,9 @@ public class DuelListener implements Listener {
                     }
 
                     winner.sendTitle("", "You won the duel!", 20,80,20);
-                    winner.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 100, 9, false, false,true));
+                    winner.addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE, 100, 9, false, false,true));
                     winner.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 9, false, false,true));
-                    winner.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 9, false, false,true));
+                    winner.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 100, 9, false, false,true));
                 }
 
                 plugin.dataSource.removeDuel(duel.Id);

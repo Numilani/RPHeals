@@ -44,7 +44,7 @@ public class CampfireListener implements Listener {
                 if (GetTimeUntilNextCampfireHeal(event.getPlayer().getUniqueId().toString()).toMinutes() >= 0){
                     event.getPlayer().sendMessage("You rest by the campfire. It's soothing heat helps revitalize you.");
                     event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 60 * 20, 0, false, false, true));
-                    event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60 * 20, 2, false, false, true));
+                    event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 60 * 20, 2, false, false, true));
                     plugin.dataSource.updatePlayerCampfireInteractionTime(event.getPlayer().getUniqueId().toString());
                 }
                 else{
