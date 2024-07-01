@@ -1,9 +1,5 @@
 package me.numilani.rpheals;
 
-import cloud.commandframework.annotations.AnnotationParser;
-import cloud.commandframework.execution.CommandExecutionCoordinator;
-import cloud.commandframework.meta.SimpleCommandMeta;
-import cloud.commandframework.paper.PaperCommandManager;
 import com.bergerkiller.bukkit.common.cloud.CloudSimpleHandler;
 import com.bergerkiller.bukkit.common.config.FileConfiguration;
 import me.numilani.rpheals.data.IDataSourceConnector;
@@ -12,6 +8,11 @@ import me.numilani.rpheals.listeners.CampfireListener;
 import me.numilani.rpheals.listeners.DuelListener;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.incendo.cloud.annotations.AnnotationParser;
+import org.incendo.cloud.execution.ExecutionCoordinator;
+import org.incendo.cloud.meta.SimpleCommandMeta;
+import org.incendo.cloud.paper.LegacyPaperCommandManager;
+import org.incendo.cloud.paper.PaperCommandManager;
 
 import java.sql.SQLException;
 import java.util.function.Function;
@@ -19,8 +20,7 @@ import java.util.function.Function;
 public final class RPHeal extends JavaPlugin {
 
 //    public CloudSimpleHandler cmdHandler = new CloudSimpleHandler();
-    public PaperCommandManager<CommandSender> cmdHandler;
-    public AnnotationParser<CommandSender> cmdParser;
+    public LegacyPaperCommandManager<CommandSender> cmdHandler;
     public FileConfiguration cfg;
     public IDataSourceConnector dataSource;
 
@@ -49,15 +49,13 @@ public final class RPHeal extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CampfireListener(this), this);
         getServer().getPluginManager().registerEvents(new DuelListener(this), this);
 
-        // Register commands
-        //cmdHandler.getParser().parse(new ChatCommandHandler(this));
         try {
-            cmdHandler = new PaperCommandManager<>(this, CommandExecutionCoordinator.simpleCoordinator(), Function.identity(), Function.identity());
-            cmdParser = new AnnotationParser<>(cmdHandler, CommandSender.class, parserParameters -> SimpleCommandMeta.empty());
+            cmdHandler = LegacyPaperCommandManager.createNative(this, ExecutionCoordinator.simpleCoordinator());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+    
 
     private void doPluginInit() {
         var cfgFile = new FileConfiguration(this, "config.yml");
